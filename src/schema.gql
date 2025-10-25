@@ -12,15 +12,34 @@ type Client {
   fotoUrl: String
 }
 
+type User {
+  id: ID!
+  fullname: String!
+  email: String!
+  roles: [String!]!
+  isActive: Boolean!
+}
+
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
 type Query {
   clients: [Client!]!
   client(id: ID!): Client!
+  users: [User!]!
+  user(id: ID!): User!
+  revalidate: AuthResponse!
 }
 
 type Mutation {
   createClient(createClientInput: CreateClientInput!): Client!
   updateClient(id: ID!, updateClientInput: UpdateClientInput!): Client!
   removeClient(id: ID!): Client!
+  removeUser(id: Int!): User!
+  signup(signupInput: SignupInput!): AuthResponse!
+  login(loginInput: LoginInput!): AuthResponse!
 }
 
 input CreateClientInput {
@@ -39,4 +58,15 @@ input UpdateClientInput {
   ci: String
   phone: String
   fotoUrl: String
+}
+
+input SignupInput {
+  fullname: String!
+  email: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
