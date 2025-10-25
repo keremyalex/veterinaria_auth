@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { SignupInput } from 'src/auth/dto/signup.input';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ValidRoles } from 'src/auth/enums/valid-roles.enum';
 
 @Injectable()
 export class UsersService {
@@ -29,8 +30,8 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return [];
+  async findAll(roles: ValidRoles[]): Promise<User[]> {
+    return this.usersRepository.find();
   }
 
   async findOneByEmail(email: string): Promise<User> {
@@ -49,8 +50,17 @@ export class UsersService {
     }
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserInput: UpdateUserInput): Promise<User> {
+    try {
+      const user = await this.usersRepository.preload({
+        ...updateUserInput,
+        id,
+      });
+      if (!user) throw new NotFoundException(`User with id ${id} not found`);
+      return await this.usersRepository.save(user);
+    } catch (error) {
+      throw new InternalServerErrorException('Please check server logs for more details');
+    }
   }
 
   remove(id: number) {

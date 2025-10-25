@@ -28,15 +28,21 @@ type AuthResponse {
 type Query {
   clients: [Client!]!
   client(id: ID!): Client!
-  users: [User!]!
+  users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
   revalidate: AuthResponse!
+}
+
+enum ValidRoles {
+  admin
+  user
 }
 
 type Mutation {
   createClient(createClientInput: CreateClientInput!): Client!
   updateClient(id: ID!, updateClientInput: UpdateClientInput!): Client!
   removeClient(id: ID!): Client!
+  updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   signup(signupInput: SignupInput!): AuthResponse!
   login(loginInput: LoginInput!): AuthResponse!
@@ -58,6 +64,13 @@ input UpdateClientInput {
   ci: String
   phone: String
   fotoUrl: String
+}
+
+input UpdateUserInput {
+  fullname: String
+  email: String
+  password: String
+  id: ID!
 }
 
 input SignupInput {
