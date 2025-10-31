@@ -60,10 +60,20 @@
     ora "5.4.1"
     rxjs "7.8.1"
 
-"@apollo/cache-control-types@^1.0.3":
+"@apollo/cache-control-types@^1.0.2", "@apollo/cache-control-types@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@apollo/cache-control-types/-/cache-control-types-1.0.3.tgz#5da62cf64c3b4419dabfef4536b57a40c8ff0b47"
   integrity sha512-F17/vCp7QVwom9eG7ToauIKdAxpSoadsJnqIfyryLFSkLSOEqu+eC5Z3N8OXcUVStuOMcNHlyraRsA6rRICu4g==
+
+"@apollo/federation-internals@2.11.3":
+  version "2.11.3"
+  resolved "https://registry.yarnpkg.com/@apollo/federation-internals/-/federation-internals-2.11.3.tgz#0a8f946febebecf3a67b713f16fd9627cc51256c"
+  integrity sha512-TOiJc1hkf22LBRA9X0D6XnM3ve1iDJSyK5voypPzhpOkNAHhJToVMF8LaTmM56mDx5KuAfsQZp1D/285LmfcRw==
+  dependencies:
+    "@types/uuid" "^9.0.0"
+    chalk "^4.1.0"
+    js-levenshtein "^1.1.6"
+    uuid "^9.0.0"
 
 "@apollo/protobufjs@1.2.6":
   version "1.2.6"
@@ -144,6 +154,14 @@
     negotiator "^1.0.0"
     uuid "^11.1.0"
     whatwg-mimetype "^4.0.0"
+
+"@apollo/subgraph@^2.11.3":
+  version "2.11.3"
+  resolved "https://registry.yarnpkg.com/@apollo/subgraph/-/subgraph-2.11.3.tgz#2a783bd91d027b118f8c18df598523c5cff3717d"
+  integrity sha512-Tgk2WhEqfu50eEOtRFnthQ1eTCVfIYkzJZ1DPQzxZzK5x3FzYmQzRdJ5e32lPu+LPIt/m2kLaGDC6cVdVGmi4g==
+  dependencies:
+    "@apollo/cache-control-types" "^1.0.2"
+    "@apollo/federation-internals" "2.11.3"
 
 "@apollo/usage-reporting-protobuf@^4.0.0", "@apollo/usage-reporting-protobuf@^4.1.0", "@apollo/usage-reporting-protobuf@^4.1.1":
   version "4.1.1"
@@ -2039,6 +2057,11 @@
   dependencies:
     "@types/methods" "^1.1.4"
     "@types/superagent" "^8.1.0"
+
+"@types/uuid@^9.0.0":
+  version "9.0.8"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.8.tgz#7545ba4fc3c003d6c756f651f3bf163d8f0f29ba"
+  integrity sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==
 
 "@types/validator@^13.11.8":
   version "13.15.3"
@@ -4663,6 +4686,11 @@ jest@^30.0.0:
     "@jest/types" "30.2.0"
     import-local "^3.2.0"
     jest-cli "30.2.0"
+
+js-levenshtein@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/js-levenshtein/-/js-levenshtein-1.1.6.tgz#c6cee58eb3550372df8deb85fad5ce66ce01d59d"
+  integrity sha512-X2BB11YZtrRqY4EnQcLX5Rh373zbK4alC1FW7D7MBhL2gtcC17cTnr6DmfHZeS0s2rTHjUTMMHfG7gO8SSdw+g==
 
 js-md4@^0.3.2:
   version "0.3.2"

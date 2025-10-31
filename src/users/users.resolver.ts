@@ -1,5 +1,5 @@
 import { ParseIntPipe, UseGuards } from '@nestjs/common';
-import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID, ResolveReference } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
@@ -42,4 +42,12 @@ export class UsersResolver {
   removeUser(@Args('id', { type: () => Int }) id: number) {
     return this.usersService.remove(id);
   }
+
+    // 👇 Necesario para Apollo Federation
+  @ResolveReference()
+  resolveReference(ref: { __typename: 'User'; id: string | number }) {
+    const id = typeof ref.id === 'string' ? parseInt(ref.id, 10) : ref.id;
+    return this.usersService.findOneById(id);
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID, ResolveReference } from '@nestjs/graphql';
 import { ClientsService } from './clients.service';
 import { Client } from './entities/client.entity';
 import { CreateClientInput } from './dto/create-client.input';
@@ -34,5 +34,12 @@ export class ClientsResolver {
   @Mutation(() => Client)
   async removeClient(@Args('id', { type: () => ID }, ParseIntPipe) id: number) {
     return this.clientsService.remove(id);
+  }
+
+    // 👇 Necesario para Federation (sin guard)
+  @ResolveReference()
+  resolveReference(ref: { __typename: 'Client'; id: string | number }) {
+    const id = typeof ref.id === 'string' ? parseInt(ref.id, 10) : ref.id;
+    return this.clientsService.findOne(id);
   }
 }
