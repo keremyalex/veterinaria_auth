@@ -5,7 +5,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloFederationDriver, ApolloFederationDriverConfig } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ApolloServerPluginInlineTraceDisabled } from '@apollo/server/plugin/disabled';
-import { ClientsModule } from './clients/clients.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
@@ -40,7 +39,6 @@ import { AuthModule } from './auth/auth.module';
         trustServerCertificate: true,
       },
     }),
-    ClientsModule,
     UsersModule,
     AuthModule,
   ],

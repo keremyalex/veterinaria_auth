@@ -2,16 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Client {
-  id: ID!
-  name: String!
-  lastname: String!
-  email: String!
-  ci: String!
-  phone: String!
-  fotoUrl: String
-}
-
 type User {
   id: ID!
   fullname: String!
@@ -26,8 +16,6 @@ type AuthResponse {
 }
 
 type Query {
-  clients: [Client!]!
-  client(id: ID!): Client!
   users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
   revalidate: AuthResponse!
@@ -39,31 +27,10 @@ enum ValidRoles {
 }
 
 type Mutation {
-  createClient(createClientInput: CreateClientInput!): Client!
-  updateClient(id: ID!, updateClientInput: UpdateClientInput!): Client!
-  removeClient(id: ID!): Client!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   signup(signupInput: SignupInput!): AuthResponse!
   login(loginInput: LoginInput!): AuthResponse!
-}
-
-input CreateClientInput {
-  name: String!
-  lastname: String!
-  email: String!
-  ci: String!
-  phone: String!
-  fotoUrl: String
-}
-
-input UpdateClientInput {
-  name: String
-  lastname: String
-  email: String
-  ci: String
-  phone: String
-  fotoUrl: String
 }
 
 input UpdateUserInput {
