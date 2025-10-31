@@ -23,8 +23,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
             federation: 2,
       },
       // plugins: [ApolloServerPluginInlineTraceDisabled()],
-      playground: false,
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      // plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      playground: true,
 
       // Configuración específica para Federation v2
       buildSchemaOptions: {
