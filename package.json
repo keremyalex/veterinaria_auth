@@ -25,8 +25,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@apollo/server": "^5.0.0",
-    "@apollo/subgraph": "^2.11.3",
+    "@apollo/server": "4.10.4",
+    "@apollo/subgraph": "2.7.8",
     "@as-integrations/express5": "^1.1.2",
     "@nestjs/apollo": "^13.2.1",
     "@nestjs/common": "^11.0.1",
@@ -76,6 +76,7 @@
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
   },
+
   "jest": {
     "moduleFileExtensions": [
       "js",
