@@ -18,10 +18,12 @@ import { AuthModule } from './auth/auth.module';
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      autoSchemaFile: {
-        path: join(process.cwd(), 'src/schema.gql'),
-        federation: 2,
-      },
+      autoSchemaFile: process.env.NODE_ENV === 'production' 
+        ? true // En producción, no escribir archivo
+        : {
+            path: join(process.cwd(), 'src/schema.gql'),
+            federation: 2,
+          },
       // plugins: [ApolloServerPluginLandingPageLocalDefault()],
       plugins: [ApolloServerPluginInlineTraceDisabled()],
     }),
@@ -32,8 +34,8 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      // Usar synchronize solo en desarrollo
-      synchronize: process.env.NODE_ENV !== 'production',
+      // Usar synchronize - controlado por variable de entorno
+      synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
       autoLoadEntities: true,
       // Logging solo en desarrollo
       logging: process.env.NODE_ENV === 'development' ? true : ['error'],
