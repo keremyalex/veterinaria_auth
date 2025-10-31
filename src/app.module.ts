@@ -26,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
       buildSchemaOptions: {
         orphanedTypes: [],
       },
+      csrfPrevention: false,
     }),
     TypeOrmModule.forRoot({
       type: 'mssql',
