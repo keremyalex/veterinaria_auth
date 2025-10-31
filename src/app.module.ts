@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloFederationDriver, ApolloFederationDriverConfig } from '@nestjs/apollo';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ApolloServerPluginInlineTraceDisabled } from '@apollo/server/plugin/disabled';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
@@ -24,8 +23,11 @@ import { AuthModule } from './auth/auth.module';
             path: join(process.cwd(), 'src/schema.gql'),
             federation: 2,
           },
-      // plugins: [ApolloServerPluginLandingPageLocalDefault()],
       plugins: [ApolloServerPluginInlineTraceDisabled()],
+      // Configuración específica para Federation v2
+      buildSchemaOptions: {
+        orphanedTypes: [],
+      },
     }),
     TypeOrmModule.forRoot({
       type: 'mssql',
