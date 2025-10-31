@@ -7,6 +7,7 @@ import { ApolloServerPluginInlineTraceDisabled } from '@apollo/server/plugin/dis
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
 
 @Module({
@@ -21,7 +22,10 @@ import { AuthModule } from './auth/auth.module';
             path: join(process.cwd(), 'src/schema.gql'),
             federation: 2,
       },
-      plugins: [ApolloServerPluginInlineTraceDisabled()],
+      // plugins: [ApolloServerPluginInlineTraceDisabled()],
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+
       // Configuración específica para Federation v2
       buildSchemaOptions: {
         orphanedTypes: [],
