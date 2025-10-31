@@ -35,7 +35,7 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       // Usar synchronize - controlado por variable de entorno
-      synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
+      synchronize: true,
       autoLoadEntities: true,
       // Logging solo en desarrollo
       logging: process.env.NODE_ENV === 'development' ? true : ['error'],
