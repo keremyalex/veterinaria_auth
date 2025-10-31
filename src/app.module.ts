@@ -32,11 +32,19 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      synchronize: true,
+      // Usar synchronize solo en desarrollo
+      synchronize: process.env.NODE_ENV !== 'production',
       autoLoadEntities: true,
+      // Logging solo en desarrollo
+      logging: process.env.NODE_ENV === 'development' ? true : ['error'],
+      // Connection pool para producción
+      extra: {
+        connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT || '10'),
+        connectTimeout: parseInt(process.env.DB_CONNECTION_TIMEOUT || '30000'),
+      },
       options: {
-        encrypt: false,
-        trustServerCertificate: true,
+        encrypt: process.env.DB_ENCRYPT === 'true',
+        trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE !== 'false',
       },
     }),
     UsersModule,

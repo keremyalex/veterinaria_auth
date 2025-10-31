@@ -1,0 +1,55 @@
+# ================================
+# ETAPA DE BUILD
+# ================================
+FROM node:20-alpine AS builder
+
+WORKDIR /usr/src/app
+
+# Copiar archivos de dependencias
+COPY package*.json ./
+
+# Instalar dependencias (incluyendo devDependencies para el build)
+RUN npm ci
+
+# Copiar código fuente
+COPY . .
+
+# Compilar la aplicación
+RUN npm run build
+
+# ================================
+# ETAPA DE PRODUCCIÓN
+# ================================
+FROM node:20-alpine AS production
+
+# Crear usuario no-root para seguridad
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nestjs -u 1001
+
+WORKDIR /usr/src/app
+
+# Copiar archivos de dependencias
+COPY package*.json ./
+
+# Instalar solo dependencias de producción
+RUN npm ci --only=production && npm cache clean --force
+
+# Copiar el código compilado desde la etapa de build
+COPY --from=builder --chown=nestjs:nodejs /usr/src/app/dist ./dist
+
+# Cambiar al usuario no-root
+USER nestjs
+
+# Exponer el puerto
+EXPOSE 3001
+
+# Variables de entorno por defecto
+ENV NODE_ENV=production
+ENV PORT=3001
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node dist/health-check.js || exit 1
+
+# Comando para iniciar la aplicación
+CMD ["node", "dist/main"]
