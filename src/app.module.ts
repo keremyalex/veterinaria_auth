@@ -17,12 +17,10 @@ import { AuthModule } from './auth/auth.module';
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      autoSchemaFile: process.env.NODE_ENV === 'production' 
-        ? true // En producción, no escribir archivo
-        : {
+      autoSchemaFile: {
             path: join(process.cwd(), 'src/schema.gql'),
             federation: 2,
-          },
+      },
       plugins: [ApolloServerPluginInlineTraceDisabled()],
       // Configuración específica para Federation v2
       buildSchemaOptions: {

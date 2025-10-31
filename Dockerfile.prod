@@ -37,6 +37,10 @@ RUN npm install --only=production --legacy-peer-deps && npm cache clean --force
 # Copiar el código compilado desde la etapa de build
 COPY --from=builder --chown=nestjs:nodejs /usr/src/app/dist ./dist
 
+# Crear directorio src con permisos y copiar estructura
+RUN mkdir -p /usr/src/app/src && chown -R nestjs:nodejs /usr/src/app/src
+COPY --from=builder --chown=nestjs:nodejs /usr/src/app/src /usr/src/app/src
+
 # Cambiar al usuario no-root
 USER nestjs
 
